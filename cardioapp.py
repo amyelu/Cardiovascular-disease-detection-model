@@ -18,11 +18,29 @@ glucose = st.selectbox("🍬 Glucose Level", ["Normal", "Above Normal", "Well Ab
 alcoholic_status = st.selectbox("🍷 Alcohol Consumption", ["Non-Drinker", "Drinker"])
 physically_active = st.selectbox("🏃‍♂️ Physical Activity", ["No", "Yes"])
 
-# Numerical Inputs
+# Numerical Inputs for Blood Pressure
 sys_bp = st.number_input("💓 Systolic Blood Pressure (ap_hi)", min_value=50, max_value=250, step=1)
 dia_bp = st.number_input("💓 Diastolic Blood Pressure (ap_lo)", min_value=30, max_value=150, step=1)
-weight = st.number_input("⚖️ Weight (kg)", min_value=30.0, max_value=200.0, step=0.1)
-height = st.number_input("📏 Height (cm)", min_value=100, max_value=250, step=1)
+
+# --- HEIGHT INPUT ---
+height_unit = st.selectbox("📏 Height Unit", ["cm", "inches"])
+height_input = st.number_input(f"📏 Height ({height_unit})", min_value=30.0, max_value=250.0, step=0.1)
+
+# Convert inches to cm if needed
+if height_unit == "inches":
+    height = round(height_input * 2.54, 2)  # 1 inch = 2.54 cm
+else:
+    height = height_input
+
+# --- WEIGHT INPUT ---
+weight_unit = st.selectbox("⚖️ Weight Unit", ["kg", "lbs"])
+weight_input = st.number_input(f"⚖️ Weight ({weight_unit})", min_value=30.0, max_value=500.0, step=0.1)
+
+# Convert lbs to kg if needed
+if weight_unit == "lbs":
+    weight = round(weight_input * 0.453592, 2)  # 1 lb = 0.453592 kg
+else:
+    weight = weight_input
 
 # BMI Calculation
 bmi = round(weight / ((height / 100) ** 2), 2)
@@ -74,3 +92,4 @@ if st.button("🔮 Predict Cardiovascular Risk"):
 
     st.success(f"**Prediction: {result}**")
     st.write(f"🧬 **Probability of Cardiovascular Disease**: {prediction_prob:.2f}")
+
