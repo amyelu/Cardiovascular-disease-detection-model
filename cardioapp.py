@@ -84,7 +84,7 @@ features = np.array([
 ]).reshape(1, -1)
 
 # --- PREDICTION ---
-if st.button("🔮 Predict Cardiovascular Risk"):
+if st.button("Predict Cardiovascular Risk"):
     prediction_prob = model.predict_proba(features)[0][1]
 
     # Convert probability into a readable label
