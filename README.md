@@ -1,6 +1,8 @@
 # Cardiovascular-disease-detection-model
 This dataset contains health records of individuals, providing key attributes essential for analyzing cardiovascular disease (CVD) risk and related health conditions. The dataset allows for exploratory data analysis (EDA) to uncover patterns, trends, and potential risk factors associated with CVD. Additionally, feature engineering will be applied to derive new insights and improve predictive modeling.
 
+This data set was sourced from kaggle, Cardiovascular Disease dataset by Svetlana Ulianova
+
 ### Objective
 The primary objective of this analysis is to build a classification model that predicts the presence or absence of cardiovascular disease. This involves:
 
