@@ -88,12 +88,12 @@ if st.button("Predict Cardiovascular Risk"):
     prediction_prob = model.predict_proba(features)[0][1]
 
     # Convert probability into a readable label
-    if prediction_prob > 0.7:
+    if prediction_prob > 0.5:
         result = "⚠️ High Risk of Cardiovascular Disease"
-    elif prediction_prob > 0.4:
+    elif prediction_prob > 0.3:
         result = "⚠️ Moderate Risk of Cardiovascular Disease"
     else:
         result = "✅ Low Risk of Cardiovascular Disease"
 
     st.success(f"**Prediction: {result}**")
-    st.write(f"🧬 **Probability of Cardiovascular Disease**: {prediction_prob:.2f}")
+    st.write(f"**Probability of Cardiovascular Disease**: {prediction_prob:.2f}")
