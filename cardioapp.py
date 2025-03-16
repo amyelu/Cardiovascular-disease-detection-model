@@ -23,14 +23,16 @@ sys_bp = st.number_input("💓 Systolic Blood Pressure (ap_hi)", min_value=50, m
 dia_bp = st.number_input("💓 Diastolic Blood Pressure (ap_lo)", min_value=30, max_value=150, step=1)
 
 # --- HEIGHT INPUT ---
-height_unit = st.selectbox("📏 Height Unit", ["cm", "inches"])
-height_input = st.number_input(f"📏 Height ({height_unit})", min_value=30.0, max_value=250.0, step=0.1)
-
-# Convert inches to cm if needed
-if height_unit == "inches":
-    height = round(height_input * 2.54, 2)  # 1 inch = 2.54 cm
-else:
-    height = height_input
+height_unit = st.selectbox("📏 Height Unit", ["cm", "feet & inches", "inches"])
+if height_unit == "cm":
+    height = st.number_input("📏 Height (cm)", min_value=30.0, max_value=250.0, step=0.1)
+elif height_unit == "feet & inches":
+    feet = st.number_input("👣 Feet", min_value=1, max_value=8, step=1)
+    inches = st.number_input("📏 Inches", min_value=0, max_value=11, step=1)
+    height = round((feet * 30.48) + (inches * 2.54), 2)  # Convert feet & inches to cm
+else:  # Inches only
+    inches = st.number_input("📏 Height (inches)", min_value=12.0, max_value=100.0, step=0.1)
+    height = round(inches * 2.54, 2)  # Convert inches to cm
 
 # --- WEIGHT INPUT ---
 weight_unit = st.selectbox("⚖️ Weight Unit", ["kg", "lbs"])
@@ -92,4 +94,3 @@ if st.button("🔮 Predict Cardiovascular Risk"):
 
     st.success(f"**Prediction: {result}**")
     st.write(f"🧬 **Probability of Cardiovascular Disease**: {prediction_prob:.2f}")
-
