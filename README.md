@@ -48,13 +48,34 @@ In this analysis, I explored a cardiovascular disease dataset, applying data pre
 - **Feature Engineering:** Derived new features such as BMI, pulse pressure, and blood pressure categories to enhance predictive power.
 - **Exploratory Data Analysis (EDA):** Investigated feature distributions, correlations, and their impact on cardiovascular disease.
 - **Model Training & Evaluation:** Tested multiple classification models, with Gradient Boosting Classifier performing the best.
-**Hyperparameter Tuning:** Optimized model performance using GridSearchCV, improving precision and overall accuracy.
+- **Hyperparameter Tuning:** Optimized model performance using GridSearchCV, improving precision and overall accuracy.
   
 #### The final model achieved:
 
-**Accuracy: 72.81%**
-**Precision: 77.96%**
-**Recall: 72.67%**
-**F1-Score: 72.47%**
+- **Accuracy: 73.69%**
+- **Precision: 75.97%**
+- **Recall: 73.62%**
+- **F1-Score: 73.59%**
 
 This project demonstrated the effectiveness of feature engineering and hyperparameter tuning in improving cardiovascular disease prediction. Future work could involve incorporating additional medical data, applying deep learning models, or exploring advanced feature selection techniques to further enhance predictive performance.
+
+### **Limitations of This Study**  
+
+Despite efforts to optimize model performance, several limitations may have impacted the predictive accuracy of cardiovascular disease classification:  
+
+#### **1. Data Quality and Feature Limitations**  
+- The dataset lacks  some key medical variables (e.g., genetic factors) that are essential for predicting cardiovascular disease.  
+- Features are only weakly or moderately correlated with the target variable, potentially limiting predictive power.  
+
+#### **2. Potential Labeling Issues**  
+- Cardiovascular disease diagnosis can be **subjective or inconsistent**, leading to potential **mislabeling** of some cases.  
+- Medical records may not fully capture **asymptomatic or undiagnosed cases**, affecting model learning.  
+
+#### **3. Model Performance Constraints**  
+- Despite testing multiple models (eg, SVM, Gradient Boosting, Logistic Regression), none exceeded **75% in all evaluation metrics**, suggesting a potential **performance ceiling** for this dataset.  
+
+#### **4.  Feature Engineering and Representation Challenges**  
+- While polynomial features and feature selection techniques were applied, they **did not significantly boost model performance**, indicating that the dataset might **not be expressive enough** to capture cardiovascular disease risk factors effectively.  
+
+### **Conclusion**  
+While this study provides valuable insights into cardiovascular disease prediction, overcoming these limitations would require **a more comprehensive dataset with additional medical variables, better feature representation, and potentially deep learning techniques** to capture complex interactions.  
