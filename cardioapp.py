@@ -15,9 +15,9 @@ age = st.number_input("📅 Age (in years)", min_value=1, max_value=120, step=1)
 # Dropdowns for categorical features
 cholesterol = st.selectbox("🩸 Cholesterol Level", ["Normal", "Above Normal", "Well Above Normal"])
 glucose = st.selectbox("🍬 Glucose Level", ["Normal", "Above Normal", "Well Above Normal"])
-bp_category = st.selectbox("🩺 Blood Pressure Category", ["Normal", "Elevated", "Hypertension Stage 1", "Hypertension Stage 2"])
-alcoholic_status = st.selectbox("🍷 Alcohol Consumption", ["Non-Drinker", "Occasional Drinker", "Frequent Drinker"])
-physically_active = st.selectbox("🏃‍♂️ Physical Activity", ["Inactive", "Moderately Active", "Highly Active"])
+bp_category = st.selectbox("🩺 Blood Pressure Category", ["Normal", "Elevated", "Hypertension Stage 1", "Hypertension Stage 2", "Hypertensive Crisis"])
+alcoholic_status = st.selectbox("🍷 Alcohol Consumption", ["Non-Drinker", "Drinker"])
+physically_active = st.selectbox("🏃‍♂️ Physical Activity", ["No", "Yes"])
 
 # Numerical Inputs
 sys_bp = st.number_input("💓 Systolic Blood Pressure (ap_hi)", min_value=50, max_value=250, step=1)
@@ -26,7 +26,7 @@ weight = st.number_input("⚖️ Weight (kg)", min_value=30.0, max_value=200.0, 
 height = st.number_input("📏 Height (cm)", min_value=100, max_value=250, step=1)
 
 # BMI Calculation
-bmi = round(weight / ((height / 100) ** 2), 2)
+bmi = round(weight / ((height / 100) ** 2), 2) if height > 0 else 0
 st.write(f"📊 **Calculated BMI**: {bmi}")
 
 # Systolic/Diastolic Ratio
@@ -34,11 +34,11 @@ sys_dia_ratio = round(sys_bp / dia_bp, 2)
 st.write(f"📉 **Systolic/Diastolic Ratio**: {sys_dia_ratio}")
 
 # Encode categorical values
-cholesterol_map = {"Normal": 0, "Above Normal": 1, "Well Above Normal": 2}
-glucose_map = {"Normal": 0, "Above Normal": 1, "Well Above Normal": 2}
-bp_category_map = {"Normal": 0, "Elevated": 1, "Hypertension Stage 1": 2, "Hypertension Stage 2": 3}
-alcoholic_status_map = {"Non-Drinker": 0, "Occasional Drinker": 1, "Frequent Drinker": 2}
-physically_active_map = {"Inactive": 0, "Moderately Active": 1, "Highly Active": 2}
+cholesterol_map = {"Normal": 1, "Above Normal": 2, "Well Above Normal": 3}
+glucose_map = {"Normal": 1, "Above Normal": 2, "Well Above Normal": 3}
+bp_category_map = {"Normal": 4, "Elevated": 0, "Hypertension Stage 1": 2, "Hypertension Stage 2": 3, "Hypertensive Crisis": 1}
+alcoholic_status_map = {"Non-Drinker": 0, "Drinker": 1}
+physically_active_map = {"No": 0, "Yes": 1}
 
 # Prepare feature array
 features = np.array([
