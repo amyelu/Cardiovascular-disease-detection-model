@@ -6,34 +6,58 @@ import numpy as np
 model = joblib.load("Cardiovascular_detection_model.pkl")
 
 # Streamlit App
-st.title("Cardiovascular Disease Prediction App")
+st.title("💖 Cardiovascular Disease Prediction App")
+st.write("Provide patient details to predict the risk of cardiovascular disease.")
 
-# Input form
-st.write("Enter patient details to predict the risk of cardiovascular disease:")
-features = []
-age = st.number_input("Age", min_value=0, max_value=120, step=1)
-gender = st.selectbox("Gender", ["Male", "Female"])
-bp = st.number_input("Blood Pressure", min_value=50, max_value=200, step=1)
-cholesterol = st.number_input("Cholesterol Level", min_value=100, max_value=500, step=1)
+# User Inputs
+age = st.number_input("📅 Age (in years)", min_value=1, max_value=120, step=1)
 
-# Convert input into features array
-features.append(age)
-features.append(1 if gender == "Male" else 0)  # Encode gender as 1 for Male, 0 for Female
-features.append(bp)
-features.append(cholesterol)
+# Dropdowns for categorical features
+cholesterol = st.selectbox("🩸 Cholesterol Level", ["Normal", "Above Normal", "Well Above Normal"])
+glucose = st.selectbox("🍬 Glucose Level", ["Normal", "Above Normal", "Well Above Normal"])
+bp_category = st.selectbox("🩺 Blood Pressure Category", ["Normal", "Elevated", "Hypertension Stage 1", "Hypertension Stage 2"])
+alcoholic_status = st.selectbox("🍷 Alcohol Consumption", ["Non-Drinker", "Occasional Drinker", "Frequent Drinker"])
+physically_active = st.selectbox("🏃‍♂️ Physical Activity", ["Inactive", "Moderately Active", "Highly Active"])
 
-# Prediction button
-if st.button("Predict"):
-    features_array = np.array(features).reshape(1, -1)
-    prediction_prob = model.predict_proba(features_array)[0][1]
+# Numerical Inputs
+sys_bp = st.number_input("💓 Systolic Blood Pressure (ap_hi)", min_value=50, max_value=250, step=1)
+dia_bp = st.number_input("💓 Diastolic Blood Pressure (ap_lo)", min_value=30, max_value=150, step=1)
+weight = st.number_input("⚖️ Weight (kg)", min_value=30.0, max_value=200.0, step=0.1)
+height = st.number_input("📏 Height (cm)", min_value=100, max_value=250, step=1)
+
+# BMI Calculation
+bmi = round(weight / ((height / 100) ** 2), 2)
+st.write(f"📊 **Calculated BMI**: {bmi}")
+
+# Systolic/Diastolic Ratio
+sys_dia_ratio = round(sys_bp / dia_bp, 2)
+st.write(f"📉 **Systolic/Diastolic Ratio**: {sys_dia_ratio}")
+
+# Encode categorical values
+cholesterol_map = {"Normal": 0, "Above Normal": 1, "Well Above Normal": 2}
+glucose_map = {"Normal": 0, "Above Normal": 1, "Well Above Normal": 2}
+bp_category_map = {"Normal": 0, "Elevated": 1, "Hypertension Stage 1": 2, "Hypertension Stage 2": 3}
+alcoholic_status_map = {"Non-Drinker": 0, "Occasional Drinker": 1, "Frequent Drinker": 2}
+physically_active_map = {"Inactive": 0, "Moderately Active": 1, "Highly Active": 2}
+
+# Prepare feature array
+features = np.array([
+    sys_bp, age, cholesterol_map[cholesterol], bmi, weight, bp_category_map[bp_category],
+    dia_bp, glucose_map[glucose], physically_active_map[physically_active],
+    sys_dia_ratio, height, alcoholic_status_map[alcoholic_status]
+]).reshape(1, -1)
+
+# Prediction Button
+if st.button("🔮 Predict Cardiovascular Risk"):
+    prediction_prob = model.predict_proba(features)[0][1]
 
     # Convert probability into a readable label
     if prediction_prob > 0.7:
-        result = "High chance of Cardiovascular disease"
+        result = "⚠️ High Risk of Cardiovascular Disease"
     elif prediction_prob > 0.4:
-        result = "Moderate chance of Cardiovascular disease"
+        result = "⚠️ Moderate Risk of Cardiovascular Disease"
     else:
-        result = "Low chance of Cardiovascular disease"
+        result = "✅ Low Risk of Cardiovascular Disease"
 
-    st.success(f"Prediction: {result}")
-    st.write(f"Probability: {prediction_prob:.2f}")
+    st.success(f"**Prediction: {result}**")
+    st.write(f"🧬 **Probability of Cardiovascular Disease**: {prediction_prob:.2f}")
