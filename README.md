@@ -35,6 +35,7 @@ Several models were tested, including:
 - DecisionTreeClassifier
 - RandomForestClassifier
 - ExtraTreesClassifier
+  
 Polynomial features were also explored to capture complex relationships within the data.
 
 ##### Evaluation Metrics Used:
