@@ -15,7 +15,6 @@ age = st.number_input("📅 Age (in years)", min_value=1, max_value=120, step=1)
 # Dropdowns for categorical features
 cholesterol = st.selectbox("🩸 Cholesterol Level", ["Normal", "Above Normal", "Well Above Normal"])
 glucose = st.selectbox("🍬 Glucose Level", ["Normal", "Above Normal", "Well Above Normal"])
-bp_category = st.selectbox("🩺 Blood Pressure Category", ["Normal", "Elevated", "Hypertension Stage 1", "Hypertension Stage 2", "Hypertensive Crisis"])
 alcoholic_status = st.selectbox("🍷 Alcohol Consumption", ["Non-Drinker", "Drinker"])
 physically_active = st.selectbox("🏃‍♂️ Physical Activity", ["No", "Yes"])
 
@@ -26,14 +25,28 @@ weight = st.number_input("⚖️ Weight (kg)", min_value=30.0, max_value=200.0, 
 height = st.number_input("📏 Height (cm)", min_value=100, max_value=250, step=1)
 
 # BMI Calculation
-bmi = round(weight / ((height / 100) ** 2), 2) if height > 0 else 0
+bmi = round(weight / ((height / 100) ** 2), 2)
 st.write(f"📊 **Calculated BMI**: {bmi}")
 
 # Systolic/Diastolic Ratio
 sys_dia_ratio = round(sys_bp / dia_bp, 2)
 st.write(f"📉 **Systolic/Diastolic Ratio**: {sys_dia_ratio}")
 
-# Encode categorical values
+# Blood Pressure Category Assignment
+if sys_bp < 120 and dia_bp < 80:
+    bp_category = "Normal"
+elif 120 <= sys_bp <= 129 and dia_bp < 80:
+    bp_category = "Elevated"
+elif 130 <= sys_bp <= 139 or 80 <= dia_bp <= 89:
+    bp_category = "Hypertension Stage 1"
+elif 140 <= sys_bp <= 180 or 90 <= dia_bp <= 120:
+    bp_category = "Hypertension Stage 2"
+else:
+    bp_category = "Hypertensive Crisis"
+
+st.write(f"🩺 **Assigned Blood Pressure Category**: {bp_category}")
+
+# Encoding categorical values
 cholesterol_map = {"Normal": 1, "Above Normal": 2, "Well Above Normal": 3}
 glucose_map = {"Normal": 1, "Above Normal": 2, "Well Above Normal": 3}
 bp_category_map = {"Normal": 4, "Elevated": 0, "Hypertension Stage 1": 2, "Hypertension Stage 2": 3, "Hypertensive Crisis": 1}
