@@ -14,18 +14,22 @@ The primary objective of this analysis is to build a classification model that p
 **Demographics:**
 - **Age:** Age of the individual (in years).
 - **Gender:** Gender of the individual (Female, Male).
+  
 **Anthropometric Data:**
 - **Height (cm):** Height of the individual.
 - **Weight (kg):** Weight of the individual.
+  
 **Blood Pressure:**
 - **Systolic Blood Pressure (ap_hi):** Upper value during a heartbeat.
 - **Diastolic Blood Pressure (ap_lo):** Lower value between heartbeats.
+
 **Health Indicators:**
 - **Cholesterol:** Cholesterol levels categorized.
 - **Glucose:** Blood glucose levels categorized.
 - **Smoking:** Binary indicator for smoking status.
 - **Alcohol Use:** Binary indicator for alcohol consumption.
 - **Physical Activity:** Binary indicator for physical activity.
+
 **Target Variable:**
 - **Cardiovascular Disease:** Indicates the presence (1) or absence (0) of cardiovascular disease.
   
